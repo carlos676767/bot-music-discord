@@ -2,6 +2,7 @@
 const { Client, GatewayIntentBits, EmbedBuilder } = require('discord.js');
 const menu = require("./menu");
 const helloPerson = require('./helloUser');
+const creditos = require('./creditos');
 
 require('dotenv').config()
 const client = new Client({
@@ -29,5 +30,7 @@ function optionsMenu() {
 
 optionsMenu()
 helloPerson()
+creditos()
+
 client.login(process.env.CHAVE_DISCORD);
 
