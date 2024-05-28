@@ -3,14 +3,6 @@ const { joinVoiceChannel } = require('@discordjs/voice');
 require('dotenv').config()
 
 
-const connection = joinVoiceChannel({
-	channelId: channel.id,
-	guildId: channel.guild.id,
-	adapterCreator: channel.guild.voiceAdapterCreator,
-});
-
-
-console.log(connection);
 
 const client = new Client({
     intents: [
@@ -52,7 +44,7 @@ const table = (titulo, artista, duracao, msg, name) => {
 
 
 function nextPlay() {
-    client.on('messageCreate', msg => {
+    client.on('messageCreate', async (msg) => {
         if (msg.content == "!play") {
             const url = "https://api.deezer.com/search/track?q=savin me&limit=1"
             buscarMusicas(url, (callback) => {

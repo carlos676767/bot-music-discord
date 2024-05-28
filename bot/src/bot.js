@@ -4,6 +4,7 @@ const menu = require("./menu");
 const helloPerson = require('./helloUser');
 const creditos = require('./creditos');
 const nextPlay = require('./reproduzirMusicas');
+const run = require('./ia');
 
 require('dotenv').config()
 const client = new Client({
