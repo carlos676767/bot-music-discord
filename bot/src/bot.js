@@ -3,7 +3,7 @@ const { Client, GatewayIntentBits, EmbedBuilder } = require('discord.js');
 const menu = require("./menu");
 const helloPerson = require('./helloUser');
 const creditos = require('./creditos');
-const pedirComando = require('./reproduzirMusicas');
+const nextPlay = require('./reproduzirMusicas');
 
 require('dotenv').config()
 const client = new Client({
@@ -19,7 +19,6 @@ client.once('ready', () => {
 })
 
 
-
 function optionsMenu() {
 	client.on('messageCreate', msg => {
 		if (msg.content == "!menu") {
@@ -33,7 +32,6 @@ function optionsMenu() {
 optionsMenu()
 helloPerson()
 creditos()
-pedirComando()
-
+nextPlay();
 client.login(process.env.CHAVE_DISCORD);
 
