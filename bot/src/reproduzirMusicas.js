@@ -26,41 +26,29 @@ const formatarSegundos = (duration) => {
     return valorFormtado
 }
 
-
-
-const showDados = () => {
-    const url = "https://api.deezer.com/search/track?q=legiaourbana&limit=10"
-    buscarMusicas(url, (callback) => {
-        const dadosApiHeader = ['picture_big']
-        callback.data.forEach(arr => {
-            const { title, artist, duration } = arr
-            table(title, artist[dadosApiHeader[0]], formatarSegundos(duration))
-        })
-    });
-}
-
-const table = (titulo, artista, duracao, send) => {
+const table = (titulo, artista, duracao, msg, name) => {
     const embed = new EmbedBuilder()
         .setColor('#0099ff')
         .setTitle(`\nMúsica: ${titulo}`)
         .setThumbnail(`${artista}`)
-        .setDescription(`**Artista:** Nome do Artista\n**Duração:** ${duracao}`)
+        .setDescription(`**Artista:** ${name}\n**Duração:** ${duracao}`)
         .addFields(
             { name: 'Spotify', value: '[Link do Spotify da Música]' },
             { name: 'Deezer', value: '[Link do Deezer da Música]' });
-    console.log(embed);
+    msg.channel.send({ embeds: [embed] });
 }
-
-
-
 
 function nextPlay() {
     client.on('messageCreate', msg => {
         if (msg.content == "!play") {
-            showDados()
+            const url = "https://api.deezer.com/search/track?q=exagerada&limit=1"
+            buscarMusicas(url, (callback) => {
+                const dadosApiHeader = ['picture_big', 'name']
+                const { title, artist, duration } = callback.data[0]
+                table(title, artist[dadosApiHeader[0]], formatarSegundos(duration), msg, artist[dadosApiHeader[1]])
+            });
         }
     })
-
 }
 
 module.exports = nextPlay
