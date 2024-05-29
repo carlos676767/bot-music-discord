@@ -1,15 +1,42 @@
 
-require('dotenv').config()
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const genAI = new GoogleGenerativeAI("AIzaSyCL432ibOPgBawbZW_4P4K4yWCR6wKxufI");
-async function run(gosto) {
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
-  const prompt = `Com base no meu estilo de musica mande ideias de musicas ${gosto}`
-  const result = await model.generateContent(prompt);
-  const response = await result.response;
-  const text = response.text();
-  console.log(text);
+require('dotenv').config();
+const { Client, GatewayIntentBits, EmbedBuilder } = require('discord.js');
+
+const client = new Client({
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent
+  ]
+});
+
+async function recomendarMusicas(gosto, msg) {
+  try {
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const prompt = `Oi, sou um grande fã de ${gosto} Você pode me recomendar algumas músicas que eu possa gostar? , não me pergunte mais nada. Obrigado! `
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const text = response.text();
+    msg.reply(text)
+  } catch (error) {
+    msg = "Nao foi possivel buscar seu gosto musical."
+  }
+  return msg
+}
+
+const musicasRceomendas = () => {
+  client.on("messageCreate", async (msg) => {
+    if (msg.content.includes(`!recomendar`)) {
+      const pegarMsg = msg.content
+      const retornarNovaString = msg.content.slice(12, Infinity)
+      await recomendarMusicas(retornarNovaString, msg)
+    }
+  })
 }
 
 
-run('rock')
+module.exports = musicasRceomendas
+client.login(process.env.CHAVE_DISCORD)
+

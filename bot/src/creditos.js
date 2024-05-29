@@ -33,4 +33,3 @@ function creditos() {
 module.exports = creditos
 
 
-client.login(process.env.CHAVE_DISCORD)
