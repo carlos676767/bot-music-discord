@@ -15,7 +15,7 @@ const buscarMusicas = async (url, callback) => {
         const data = await fetch(url)
         const resposta = await data.json();
         callback(resposta)
-    } catch (error) {
+    }catch (error) {
         console.log(error);
     }
 };
