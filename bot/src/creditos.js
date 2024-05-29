@@ -29,7 +29,7 @@ function creditos() {
         }
     })
 }
-
+client.login(process.env.CHAVE_DISCORD);
 module.exports = creditos
 
 
