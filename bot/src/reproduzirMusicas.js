@@ -33,39 +33,44 @@ const table = (titulo, artista, duracao, msg, name) => {
         .setTitle(`\nMúsica: ${titulo}`)
         .setThumbnail(`${artista}`)
         .setDescription(`**Artista:** ${name}\n**Duração:** ${duracao}`)
-        .addFields(
-            { name: 'Spotify', value: '[Link do Spotify da Música]' },
-            { name: 'Deezer', value: '[Link do Deezer da Música]' });
     msg.channel.send({ embeds: [embed] });
 }
 
+// const pegarIdCanal = (channel) => {
+//     const idCanal = channel.id
+//     const canal = `<#${idCanal}>`
+//}
 
 const entrarNaCallBot = (msg) => {
     const channel = msg.member.voice.channel
     if (channel) {
+        const idCanal = channel.id
+        const canal = `<#${idCanal}>`
         joinVoiceChannel({
             channelId: channel.id,
             guildId: channel.guild.id,
             adapterCreator: channel.guild.voiceAdapterCreator,
-        });
-        msg.reply("Estou em uma call")
+        })
+        msg.reply(`Estou na ligacao ${canal}`)
     }
 }
 
-
 function nextPlay() {
     client.on('messageCreate', async (msg) => {
-        if (msg.content == "!play") {
-            entrarNaCallBot(msg)
-            const url = "https://api.deezer.com/search/track?q=savin me&limit=1"
+        if (msg.content.includes("!play")) {
+            const novaStr = msg.content.slice(6, Infinity)
+            const url = `https://api.deezer.com/search/track?q=${novaStr}=&limit=1`
             buscarMusicas(url, (callback) => {
                 const dadosApiHeader = ['picture_big', 'name']
                 const { title, artist, duration } = callback.data[0]
                 table(title, artist[dadosApiHeader[0]], formatarSegundos(duration), msg, artist[dadosApiHeader[1]])
             });
+            entrarNaCallBot(msg)
         }
     })
 }
+
+
 
 module.exports = nextPlay
 client.login(process.env.CHAVE_DISCORD);
