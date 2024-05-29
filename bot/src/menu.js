@@ -18,6 +18,7 @@ function menu() {
 			{ name: '👋 !hello', value: 'Diz olá ao usuário.' },
 			{ name: '👨‍💻 !creditos', value: 'Fornece os créditos do bot.' },
 			{name: '🤖  !recomendar', value: "Use o comando recomendar mais seu gosto musical."},
+			{name: "✂️", value: "!jogar"},
 			{ name: '❓ !help', value: 'Mostra este menu de ajuda.' }
 		)
 		.setFooter({ text: 'Use os comandos acima para interagir com o bot.' });
