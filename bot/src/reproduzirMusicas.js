@@ -36,22 +36,22 @@ const table = (titulo, artista, duracao, msg, name) => {
     msg.channel.send({ embeds: [embed] });
 }
 
-// const pegarIdCanal = (channel) => {
-//     const idCanal = channel.id
-//     const canal = `<#${idCanal}>`
-//}
+const pegarIdCanal = (channel) => {
+    const idCanal = channel.id
+    const canal = `<#${idCanal}>`
+    return canal
+}
+
 
 const entrarNaCallBot = (msg) => {
     const channel = msg.member.voice.channel
     if (channel) {
-        const idCanal = channel.id
-        const canal = `<#${idCanal}>`
         joinVoiceChannel({
             channelId: channel.id,
             guildId: channel.guild.id,
             adapterCreator: channel.guild.voiceAdapterCreator,
         })
-        msg.reply(`Estou na ligacao ${canal}`)
+        msg.reply(`Estou na ligacao ${pegarIdCanal()}`)
     }
 }
 
@@ -70,7 +70,5 @@ function nextPlay() {
     })
 }
 
-
-
-module.exports = nextPlay
+module.exports = nextPlay;
 client.login(process.env.CHAVE_DISCORD);
