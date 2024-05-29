@@ -2,8 +2,6 @@ const { EmbedBuilder, Client, GatewayIntentBits } = require("discord.js")
 const { joinVoiceChannel } = require('@discordjs/voice');
 require('dotenv').config()
 
-
-
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
@@ -42,10 +40,23 @@ const table = (titulo, artista, duracao, msg, name) => {
 }
 
 
+const entrarNaCallBot = (msg) => {
+    const channel = msg.member.voice.channel
+    if (channel) {
+        joinVoiceChannel({
+            channelId: channel.id,
+            guildId: channel.guild.id,
+            adapterCreator: channel.guild.voiceAdapterCreator,
+        });
+        msg.reply("Estou em uma call")
+    }
+}
+
 
 function nextPlay() {
     client.on('messageCreate', async (msg) => {
         if (msg.content == "!play") {
+            entrarNaCallBot(msg)
             const url = "https://api.deezer.com/search/track?q=savin me&limit=1"
             buscarMusicas(url, (callback) => {
                 const dadosApiHeader = ['picture_big', 'name']
