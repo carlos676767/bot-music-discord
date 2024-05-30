@@ -12,7 +12,9 @@ const client = new Client({
 
 const jogar = () => {
     client.on("messageCreate", msg => {
-
+        if (msg.content.includes("!jogar")) {
+            const dadosJogos = ['pedra', 'papel', 'tesoura']
+        }
     })
 }
 
