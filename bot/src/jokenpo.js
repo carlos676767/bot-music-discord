@@ -10,4 +10,12 @@ const client = new Client({
 });
 
 
+const jogar = () => {
+    client.on("messageCreate", msg => {
+
+    })
+}
+
+
+module.exports = jogar
 client.login(process.env.CHAVE_DISCORD);

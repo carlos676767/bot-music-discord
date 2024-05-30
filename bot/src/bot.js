@@ -5,6 +5,7 @@ const helloPerson = require('./helloUser');
 const creditos = require('./creditos');
 const nextPlay = require('./reproduzirMusicas');
 const recomendarMusicas = require('./ia');
+const jogar = require('./jokenpo');
 
 
 require('dotenv').config()
@@ -36,4 +37,5 @@ helloPerson();
 creditos();
 nextPlay();
 recomendarMusicas();
+jogar();
 client.login(process.env.CHAVE_DISCORD);
