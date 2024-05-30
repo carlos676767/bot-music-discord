@@ -1,6 +1,6 @@
 
 require('dotenv').config()
-const { Client, GatewayIntentBits, EmbedBuilder } = require('discord.js');
+const { Client, GatewayIntentBits, EmbedBuilder, ButtonStyle, ButtonBuilder, ActionRowBuilder } = require('discord.js');
 
 const client = new Client({
     intents: [
@@ -10,6 +10,16 @@ const client = new Client({
     ]
 });
 
+
+
+const botoes = () => {
+    const linkUrl = new ButtonBuilder()
+        .setLabel("Instagram")
+        .setURL("https://www.instagram.com/chenrique_dev/")
+        .setStyle(ButtonStyle.Link)
+    const row = new ActionRowBuilder().addComponents(linkUrl);
+    return row
+}
 
 function creditos() {
     const creditos = new EmbedBuilder()
@@ -25,7 +35,7 @@ function creditos() {
         .addFields({ name: 'Instagram', value: '@chenrique_dev' }, { name: "Github", value: 'carlos67676' })
     client.on("messageCreate", (msg) => {
         if (msg.content == "!creditos") {
-            msg.channel.send({ embeds: [creditos] });
+            msg.channel.send({ embeds: [creditos], components: [botoes()] });
         }
     })
 }

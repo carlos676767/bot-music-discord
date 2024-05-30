@@ -37,4 +37,3 @@ creditos();
 nextPlay();
 recomendarMusicas();
 client.login(process.env.CHAVE_DISCORD);
-

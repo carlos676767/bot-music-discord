@@ -1,5 +1,5 @@
-const { EmbedBuilder, Client, GatewayIntentBits } = require("discord.js")
-const { joinVoiceChannel, createAudioPlayer, createAudioResource } = require('@discordjs/voice');
+const { EmbedBuilder, Client, GatewayIntentBits, } = require("discord.js")
+const { joinVoiceChannel, createAudioPlayer, createAudioResource, AudioPlayerStatus, NoSubscriberBehavior, entersState } = require('@discordjs/voice');
 require('dotenv').config()
 
 const client = new Client({
@@ -36,38 +36,45 @@ const table = (titulo, artista, duracao, msg, name) => {
     msg.channel.send({ embeds: [embed] });
 }
 
-
-
-
-
 function nextPlay() {
     client.on('messageCreate', async (msg) => {
         if (msg.content.includes("!play")) {
             const novaStr = msg.content.slice(6, Infinity)
             const url = `https://api.deezer.com/search/track?q=${novaStr}=&limit=1`
-            buscarMusicas(url, (callback) => {
+            buscarMusicas(url, async (callback) => {
                 const dadosApiHeader = ['picture_big', 'name']
                 const { title, artist, duration, preview } = callback.data[0]
-                const src = createAudioResource(preview)
-                const novoAudio = createAudioPlayer(src)
-                novoAudio.play()
                 table(title, artist[dadosApiHeader[0]], formatarSegundos(duration), msg, artist[dadosApiHeader[1]])
+                enterChannel(msg)
+                reproduzirMusicas(preview)
             });
-
-            const channel = msg.member.voice.channel
-            if (channel) {
-                const idCanal = channel.id
-                const canal = `<#${idCanal}>`
-                joinVoiceChannel({
-                    channelId: channel.id,
-                    guildId: channel.guild.id,
-                    adapterCreator: channel.guild.voiceAdapterCreator,
-                })
-                msg.reply(`Estou na ligacao ${canal}`)
-            }
         }
     })
 }
+
+//aqui nao esta tocando
+const reproduzirMusicas = (music) => {
+    const src = createAudioResource(music);
+    src.volume = 100;
+    const audio = createAudioPlayer(src);
+    audio.play();
+};
+
+
+function enterChannel(msg) {
+    const channelVoiceMsg = msg.member.voice.channel
+    if (channelVoiceMsg) {
+        const idChannel = channelVoiceMsg.id
+        const channel = `<#${idChannel}>`
+        joinVoiceChannel({
+            channelId: channelVoiceMsg.id,
+            guildId: channelVoiceMsg.guild.id,
+            adapterCreator: channelVoiceMsg.guild.voiceAdapterCreator,
+        })
+        msg.reply(`Estou na ligacao ${channel}`)
+    }
+}
+
 
 module.exports = nextPlay;
 client.login(process.env.CHAVE_DISCORD);
