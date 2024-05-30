@@ -43,7 +43,7 @@ const emblema = () => {
 function creditos() {
     client.on("messageCreate", (msg) => {
         if (msg.content == "!creditos") {
-            msg.channel.send({ embeds: [creditos], components: [botaoInstagram()] });
+            msg.channel.send({ embeds: [emblema()], components: [botaoInstagram()] });
         }
     })
 }
