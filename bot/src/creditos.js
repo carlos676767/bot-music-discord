@@ -20,23 +20,31 @@ const botaoInstagram = () => {
         .setLabel("GitHub")
         .setURL("https://github.com/carlos676767?")
         .setStyle(ButtonStyle.Link)
-    const row = new ActionRowBuilder().addComponents(linkUrl, Github);
+
+
+    const facebook = new ButtonBuilder()
+        .setLabel("Facebook")
+        .setURL("https://www.facebook.com/profile.php?id=100076164650612")
+        .setStyle(ButtonStyle.Link)
+
+
+    const row = new ActionRowBuilder().addComponents(linkUrl, Github, facebook);
     return row
 }
 
 
 const emblema = () => {
     const creditos = new EmbedBuilder()
-    .setColor('#0099ff')
-    .setTitle(`\nCréditos do Bot visionario`)
-    .setThumbnail('https://imgur.com/SVZdl7m.png')
-    .setDescription(`Somos seu companheiro perfeito 
+        .setColor('#0099ff')
+        .setTitle(`\nCréditos do Bot visionario`)
+        .setThumbnail('https://imgur.com/SVZdl7m.png')
+        .setDescription(`Somos seu companheiro perfeito 
     para todas as suas necessidades musicais! Com uma 
     vasta gama de funcionalidades, estamos aqui para tornar 
     sua experiência musical excepcional. Basta digitar !menu 
     para abrir nosso menu e explorar todas as opções emocionantes 
     que oferecemos.`)
-    .addFields({ name: 'Instagram', value: '@chenrique_dev' }, { name: "Github", value: 'carlos67676' })
+        .addFields({ name: 'Instagram', value: '@chenrique_dev' }, { name: "Github", value: 'carlos67676' }, { name: "Facebook", value: "Carlos silva" })
     return creditos
 }
 
