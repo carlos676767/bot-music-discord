@@ -1,6 +1,5 @@
 const { Client, GatewayIntentBits, EmbedBuilder } = require('discord.js');
 
-
 require('dotenv').config()
 const client = new Client({
     intents: [
@@ -9,7 +8,6 @@ const client = new Client({
         GatewayIntentBits.MessageContent
     ]
 });
-
 
 
 client.login(process.env.CHAVE_DISCORD);
