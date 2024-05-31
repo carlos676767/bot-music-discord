@@ -1,4 +1,4 @@
-const { Client, GatewayIntentBits, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, SlashCommandBuilder  } = require('discord.js');
+const { Client, GatewayIntentBits, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, SlashCommandBuilder } = require('discord.js');
 
 require('dotenv').config()
 const client = new Client({
@@ -20,9 +20,9 @@ const randomTesoura = () => {
 
 const embedVoceGanhou = (comando, random, msg) => {
     const embedGanhou = new EmbedBuilder()
-    .setTitle("Parabens, muito bem.")
-    .setThumbnail("https://media1.tenor.com/m/kTI1I4a-zW0AAAAC/banana-bananas.gif")
-    .setDescription(`voce jogou ${comando} e o computador ${random}`)
+        .setTitle("Parabens, muito bem.")
+        .setThumbnail("https://media1.tenor.com/m/kTI1I4a-zW0AAAAC/banana-bananas.gif")
+        .setDescription(`voce jogou ${comando} e o computador ${random}`)
     msg.channel.send({ embeds: [embedGanhou] });
 }
 
@@ -35,10 +35,20 @@ const embedEmpate = (comando, random, msg) => {
     msg.channel.send({ embeds: [embedEmpate] });
 }
 
+const embedPerdeu = (comando, random, msg) => {
+    const embedEmpate = new EmbedBuilder()
+        .setTitle("Tente novamente, voce perdeu.")
+        .setThumbnail("https://media1.tenor.com/m/TUJ_WGkQ6pcAAAAC/dog-computer.gif")
+        .setDescription(`voce jogou ${comando} e o computador ${random}`)
+    msg.channel.send({ embeds: [embedEmpate] });
+}
+
+
+
 const jogarPedraPapelTesoura = (msg, comando) => {
     const randomGame = randomTesoura()
     if (comando == 'pedra' && randomGame == 'tesoura') {
-       embedVoceGanhou(comando, randomGame, msg)
+        embedVoceGanhou(comando, randomGame, msg)
         return
     }
     if (comando == 'tesoura' && randomGame == 'papel') {
@@ -48,11 +58,11 @@ const jogarPedraPapelTesoura = (msg, comando) => {
     if (comando == 'papel' && randomGame == 'pedra') {
         embedVoceGanhou(comando, randomGame, msg)
         return
-    } 
+    }
     if (randomGame === comando) {
         embedEmpate(comando, randomGame, msg)
-    }else {
-        msg.reply(`voce jogou ${comando} e o computador ${randomGame},  voce perdeu`)
+    } else {
+        embedPerdeu(comando, randomGame, msg)
     }
 
 }
