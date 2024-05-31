@@ -6,6 +6,7 @@ const creditos = require('./creditos');
 const nextPlay = require('./reproduzirMusicas');
 const recomendarMusicas = require('./ia');
 const jogar = require('./jokenpo');
+const verificarPing = require('./ping');
 
 
 require('dotenv').config()
@@ -38,4 +39,5 @@ creditos();
 nextPlay();
 recomendarMusicas();
 jogar();
+verificarPing();
 client.login(process.env.CHAVE_DISCORD);
