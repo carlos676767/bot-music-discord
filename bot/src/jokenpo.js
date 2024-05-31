@@ -27,9 +27,16 @@ const embedVoceGanhou = (comando, random, msg) => {
 }
 
 
+const embedEmpate = (comando, random, msg) => {
+    const embedEmpate = new EmbedBuilder()
+        .setTitle("Tente novamente, empate.")
+        .setThumbnail("https://media.tenor.com/mFYsjkPJ_TwAAAAi/%E5%BC%95%E3%81%8D%E5%88%86%E3%81%91-draw.gif")
+        .setDescription(`voce jogou ${comando} e o computador ${random}`)
+    msg.channel.send({ embeds: [embedEmpate] });
+}
+
 const jogarPedraPapelTesoura = (msg, comando) => {
     const randomGame = randomTesoura()
-    
     if (comando == 'pedra' && randomGame == 'tesoura') {
        embedVoceGanhou(comando, randomGame, msg)
         return
@@ -43,7 +50,7 @@ const jogarPedraPapelTesoura = (msg, comando) => {
         return
     } 
     if (randomGame === comando) {
-        msg.reply(`voce jogou ${comando} e o computador ${randomGame}, empate`)
+        embedEmpate(comando, randomGame, msg)
     }else {
         msg.reply(`voce jogou ${comando} e o computador ${randomGame},  voce perdeu`)
     }
