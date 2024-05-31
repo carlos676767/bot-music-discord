@@ -12,12 +12,12 @@ const client = new Client({
 
 const buscarMusicas = async (url, callback) => {
     try {
-        const data = await fetch(url)
+        const data = await fetch(url);
         const resposta = await data.json();
-        callback(resposta)
+        callback(resposta);
     } catch (error) {
         console.log(error);
-    }
+    };
 };
 
 const formatarSegundos = (duration) => {
@@ -51,6 +51,7 @@ function nextPlay() {
         }
     })
 }
+
 
 //aqui nao esta tocando
 const reproduzirMusicas = (music) => {

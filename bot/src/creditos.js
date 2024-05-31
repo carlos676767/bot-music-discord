@@ -10,7 +10,6 @@ const client = new Client({
     ]
 });
 
-
 const botaoInstagram = () => {
     const linkUrl = new ButtonBuilder()
         .setLabel("Instagram")
