@@ -10,18 +10,19 @@ const client = new Client({
 });
 
 
+const randomTesoura = () => {
+    const dadosJogos = ['pedra', 'papel', 'tesoura']
+    const randomJogo = Math.floor(Math.random() * dadosJogos.length)
+    const pegarJogo = dadosJogos[randomJogo]
+    return pegarJogo
+}
+
+
+
 const jogar = () => {
     client.on("messageCreate", msg => {
         if (msg.content.includes("!jogar")) {
-            const dadosJogos = ['pedra', 'papel', 'tesoura']
-            const randomJogo = Math.floor(Math.random() * dadosJogos.length)
-            const pegarJogo = dadosJogos[randomJogo]
-
-            msg.reply(`${pegarJogo}`)
-
-
             const comando = msg.content.slice(7, Infinity)
-            console.log(comando);
         }
     })
 }
