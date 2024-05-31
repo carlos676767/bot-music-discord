@@ -1,4 +1,4 @@
-const { Client, GatewayIntentBits, EmbedBuilder } = require('discord.js');
+const { Client, GatewayIntentBits, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, SlashCommandBuilder  } = require('discord.js');
 
 require('dotenv').config()
 const client = new Client({
@@ -17,18 +17,29 @@ const randomTesoura = () => {
     return pegarJogo
 }
 
+
+const embedVoceGanhou = (comando, random, msg) => {
+    const embedGanhou = new EmbedBuilder()
+    .setTitle("Parabens, muito bem.")
+    .setThumbnail("https://media1.tenor.com/m/kTI1I4a-zW0AAAAC/banana-bananas.gif")
+    .setDescription(`voce jogou ${comando} e o computador ${random}`)
+    msg.channel.send({ embeds: [embedGanhou] });
+}
+
+
 const jogarPedraPapelTesoura = (msg, comando) => {
     const randomGame = randomTesoura()
+    
     if (comando == 'pedra' && randomGame == 'tesoura') {
-        msg.reply(`voce jogou ${comando} e o computador ${randomGame}, parabens voce ganhou`)
+       embedVoceGanhou(comando, randomGame, msg)
         return
     }
     if (comando == 'tesoura' && randomGame == 'papel') {
-        msg.reply(`voce jogou ${comando} e o computador ${randomGame}, parabens voce ganhou`)
+        embedVoceGanhou(comando, randomGame, msg)
         return
     }
     if (comando == 'papel' && randomGame == 'pedra') {
-        msg.reply(`voce jogou ${comando} e o computador ${randomGame}, parabens voce ganhou`)
+        embedVoceGanhou(comando, randomGame, msg)
         return
     } 
     if (randomGame === comando) {
